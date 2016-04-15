@@ -23,6 +23,11 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This Activity displays the screen's UI, creates a FetchWeatherTask
+ * to manage the task, and receives progress updates and results
+ * from the FetchWeatherTask when they occur.
+ */
 public class MainActivity extends AppCompatActivity implements FetchWeatherTask.TaskCallbacks {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -86,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements FetchWeatherTask.
 
     }
 
+    /**
+     * private Api to feed the UI with fetched weather details.
+     * @param weather
+     */
     private void updateWeather(Weather weather) {
         weatherDetails = weather;
         weatherList = weatherDetails.getWeatherDetailsList();
@@ -119,12 +128,18 @@ public class MainActivity extends AppCompatActivity implements FetchWeatherTask.
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Api to create progress dialog
+     */
     private void createGenericProgressDialog() {
         genericProgressDialog = new ProgressDialog(this);
         genericProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         genericProgressDialog.setCancelable(false);
     }
 
+    /**
+     * Api to show progress dialog, while fetching weather details.
+     */
     public void showProgressDialog() {
         if (genericProgressDialog != null) {
             if (!genericProgressDialog.isShowing()) {
@@ -135,6 +150,9 @@ public class MainActivity extends AppCompatActivity implements FetchWeatherTask.
 
     }
 
+    /**
+     * Api to dismiss progress dialog, if it is showing.
+     */
     public void dismissProgressDialog() {
         if (genericProgressDialog != null) {
             if (genericProgressDialog.isShowing()) {
@@ -143,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements FetchWeatherTask.
         }
     }
 
+    /**
+     * Callbacks method called by FetchWeatherTask
+     * to update the UI according.
+     */
     @Override
     public void onPreExecute() {
         showProgressDialog();

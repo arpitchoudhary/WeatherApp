@@ -12,7 +12,11 @@ import com.openweather.weatherapp.FetchWeatherByIDClient;
 import com.openweather.weatherapp.R;
 import com.openweather.weatherapp.model.ZipCodeDetails;
 
-
+/**
+ * Fragment created to fetch weather details,
+ * And retain state during Activity (SearchByZipcodeActivity) recreation
+ * and give the callback accordingly.
+ */
 public class FetchWeatherByIDTask extends Fragment {
 
     private ZipCodeDetails zipCodeData;
@@ -25,9 +29,15 @@ public class FetchWeatherByIDTask extends Fragment {
         return zipCodeData;
     }
 
+    /**
+     * Callbacks define, which update the UI
+     * based on the state
+     */
     interface TaskCallbacks {
+        // before making any operation in background
         void onPreExecute();
 
+        //after fetching the data.
         void onPostExecute(ZipCodeDetails weather);
     }
 
@@ -67,7 +77,9 @@ public class FetchWeatherByIDTask extends Fragment {
         super.onDetach();
         mCallbacks = null;
     }
-
+    /**
+     * FetchWeatherDetails AsyncTask created to fetch the Weather Details.
+     */
     class FetchWeatherDetails extends AsyncTask<Void, Void, ZipCodeDetails> {
         @Override
         protected void onPreExecute() {

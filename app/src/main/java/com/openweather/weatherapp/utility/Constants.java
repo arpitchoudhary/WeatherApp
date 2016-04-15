@@ -1,6 +1,8 @@
 package com.openweather.weatherapp.utility;
 
-
+/**
+ * File to keep all the constants at one places
+ */
 public class Constants {
 
     public static final String MAINTAINENCE_KEY = "14f1dc3a200a91e5ce807c2d5b992aee";

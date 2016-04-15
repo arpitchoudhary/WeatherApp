@@ -20,7 +20,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * HttpClient to make the handle the network calls
+ */
 public class FetchWeatherHttpClient {
 
 
@@ -41,6 +43,7 @@ public class FetchWeatherHttpClient {
             final String APPID_PARAM = "APPID";
             String defaultLocation = "London";
 
+            //Uri builder to build the Request url
             Uri builtUri = Uri.parse(Constants.FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, defaultLocation)
                     .appendQueryParameter(APPID_PARAM, Constants.MAINTAINENCE_KEY)
@@ -48,10 +51,11 @@ public class FetchWeatherHttpClient {
 
             URL url = new URL(builtUri.toString());
             Log.d(TAG, "URL ->" + builtUri.toString());
+            //create the request and open the connection.
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
-
+            //read the input stream
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
@@ -89,6 +93,10 @@ public class FetchWeatherHttpClient {
         return weather;
     }
 
+    /**
+     * Take the String representing the complete forecast in JSON Format and
+     * pull out the data we need to construct the Strings needed for the wireframes.
+     */
     private Weather getWeatherDataFromJson(String forecastJsonString)
             throws JSONException {
 

@@ -12,6 +12,11 @@ import com.openweather.weatherapp.FetchWeatherHttpClient;
 import com.openweather.weatherapp.R;
 import com.openweather.weatherapp.model.Weather;
 
+/**
+ * Fragment created to fetch weather details,
+ * And retain state during Activity (MainActivity) recreation
+ * and give the callback accordingly.
+ */
 public class FetchWeatherTask extends Fragment {
 
     private Weather weatherData;
@@ -24,11 +29,18 @@ public class FetchWeatherTask extends Fragment {
         return weatherData;
     }
 
+    /**
+     * Callbacks define, which update the UI
+     * based on the state
+     */
     interface TaskCallbacks {
+        // before making any operation in background
         void onPreExecute();
 
+        // if call to fetch the data is canceled.
         void onCancelled();
 
+        //after fetching the data.
         void onPostExecute(Weather weather);
     }
 
@@ -69,6 +81,9 @@ public class FetchWeatherTask extends Fragment {
         mCallbacks = null;
     }
 
+    /**
+     * FetchWeatherDetails AsyncTask created to fetch the Weather Details.
+     */
     class FetchWeatherDetails extends AsyncTask<Void, Void, Weather> {
 
         @Override

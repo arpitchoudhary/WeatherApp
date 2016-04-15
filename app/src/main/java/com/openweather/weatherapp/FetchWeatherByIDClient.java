@@ -20,7 +20,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+/**
+ * HttpClient to make the handle the network calls
+ */
 public class FetchWeatherByIDClient {
 
     private static final String TAG = "FetchWeatherByIDClient";
@@ -46,10 +48,12 @@ public class FetchWeatherByIDClient {
 
             URL url = new URL(builtUri.toString());
             Log.d(TAG, "URL ->" + builtUri.toString());
+            //create the request and open the connection.
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
+            //read the input stream
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
@@ -87,6 +91,12 @@ public class FetchWeatherByIDClient {
         return weather;
     }
 
+    /**
+     * private Api to parse the Json String and populate the appropriate modal.
+     * @param forecastJsonStr
+     * @return ZipCodeDetails
+     * @throws JSONException
+     */
     private ZipCodeDetails getWeatherDataFromJson(String forecastJsonStr) throws JSONException {
         final String NODE_CITY_NAME = "name";
         final String NODE_MAX = "temp_max";

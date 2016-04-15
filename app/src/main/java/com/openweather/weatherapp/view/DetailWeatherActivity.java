@@ -50,6 +50,10 @@ public class DetailWeatherActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Api to create and setUp a shareIntent
+     * @return Intent
+     */
     private Intent createShareIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -68,6 +72,9 @@ public class DetailWeatherActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * populating the Ui
+     */
     private void setScreenDetail() {
         detailDayTV.setText(weatherDetails.getDay());
         detailDateTV.setText(weatherDetails.getCity());
@@ -91,6 +98,9 @@ public class DetailWeatherActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * getting all the Id's from the xml.
+     */
     private void getViewById() {
         getSupportActionBar().setTitle("Weather");
         detailDayTV = (TextView) findViewById(R.id.detailDayTV);

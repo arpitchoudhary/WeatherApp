@@ -12,7 +12,7 @@ import com.openweather.weatherapp.R;
 import com.openweather.weatherapp.model.Weather;
 import com.openweather.weatherapp.model.ZipCodeDetails;
 
-public class SearchByZipcodeActivity extends AppCompatActivity implements FetchWeatherByIDTask.TaskCallbacks{
+public class SearchByZipcodeActivity extends AppCompatActivity implements FetchWeatherByIDTask.TaskCallbacks {
 
     private TextView city;
     private TextView minTemp;
@@ -40,10 +40,10 @@ public class SearchByZipcodeActivity extends AppCompatActivity implements FetchW
         if (fetchWeatherByIDTask == null) {
             fetchWeatherByIDTask = new FetchWeatherByIDTask();
             fm.beginTransaction().add(fetchWeatherByIDTask, TAG_TASK_FRAGMENT).commit();
-        }else{
-                if(fetchWeatherByIDTask !=null){
-                    updateScreen(fetchWeatherByIDTask.getZipCodeData());
-                }
+        } else {
+            if (fetchWeatherByIDTask != null) {
+                updateScreen(fetchWeatherByIDTask.getZipCodeData());
+            }
         }
     }
 
@@ -57,12 +57,18 @@ public class SearchByZipcodeActivity extends AppCompatActivity implements FetchW
         etZip = (EditText) findViewById(R.id.zipcode_enterZipEt);
     }
 
+    /**
+     * Api to create progress dialog
+     */
     private void createGenericProgressDialog() {
         genericProgressDialog = new ProgressDialog(this);
         genericProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         genericProgressDialog.setCancelable(false);
     }
 
+    /**
+     * Api to show progress dialog, while fetching weather details.
+     */
     public void showProgressDialog() {
         if (genericProgressDialog != null) {
             if (!genericProgressDialog.isShowing()) {
@@ -73,6 +79,9 @@ public class SearchByZipcodeActivity extends AppCompatActivity implements FetchW
 
     }
 
+    /**
+     * Api to dismiss progress dialog, if it is showing.
+     */
     public void dismissProgressDialog() {
         if (genericProgressDialog != null) {
             if (genericProgressDialog.isShowing()) {
@@ -81,6 +90,10 @@ public class SearchByZipcodeActivity extends AppCompatActivity implements FetchW
         }
     }
 
+    /**
+     * Callbacks method called by FetchWeatherTask
+     * to update the UI according.
+     */
     @Override
     public void onPreExecute() {
         showProgressDialog();
@@ -93,11 +106,16 @@ public class SearchByZipcodeActivity extends AppCompatActivity implements FetchW
         dismissProgressDialog();
     }
 
+    /**
+     * Api to populate the screen
+     *
+     * @param weather
+     */
     private void updateScreen(ZipCodeDetails weather) {
         city.setText(weather.getCity());
-        minTemp.setText("Min Temp "+weather.getMinTemp() +  "°C");
-        maxTemp.setText("Max Temp "+weather.getMaxTemp()+  "°C");
+        minTemp.setText("Min Temp " + weather.getMinTemp() + "°C");
+        maxTemp.setText("Max Temp " + weather.getMaxTemp() + "°C");
         forecast.setText(weather.getForecast());
-        humid.setText("Humidity "+weather.getHumid());
+        humid.setText("Humidity " + weather.getHumid());
     }
 }

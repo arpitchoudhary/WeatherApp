@@ -13,7 +13,9 @@ import com.openweather.weatherapp.model.WeatherDetails;
 
 import java.util.List;
 
-
+/**
+ * Adapter for MainActivity List view.
+ */
 public class ForeCastWeatherAdapter extends BaseAdapter {
 
     private Context context;
@@ -24,6 +26,9 @@ public class ForeCastWeatherAdapter extends BaseAdapter {
         this.weatherList = weatherList;
     }
 
+    /**
+     * Cache of the children views for a forecast list item.
+     */
     static class ViewHolder {
         private TextView foreCast, day, minTemp, maxTemp;
         private ImageView foreCastImage;
@@ -70,6 +75,7 @@ public class ForeCastWeatherAdapter extends BaseAdapter {
             holder.maxTemp.setText((Math.round((Double.parseDouble(weatherList.get(position).getMaxTemp()) - 273.15))) + "°C");
             holder.minTemp.setText((Math.round((Double.parseDouble(weatherList.get(0).getMinTemp()) - 273.15))) + "°C");
 
+            // setting the image from drawable based on the forecast.
             if (foreCast.contains("rain") || foreCast.contains("Rain")) {
                 viewHolder.foreCastImage.setImageResource(R.drawable.img_rain);
             } else if (foreCast.contains("clouds") || foreCast.contains("Clouds")) {
